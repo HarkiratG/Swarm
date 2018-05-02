@@ -30,8 +30,8 @@ def rangeContours(hsv, colorLower, colorUpper):
 def find_orientation_block(frame):
     sensitivity = 50
     #bgr
-    greenLower = (80, 150, 50)
-    greenUpper = (180, 255, 130)
+    greenLower = (90, 150, 50)
+    greenUpper = (186, 255, 130)
 
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     cont_frame, contours, hierarchy = rangeContours(frame,greenLower, greenUpper)
