@@ -23,6 +23,7 @@ while 1:
 
 	a = vision.find_robots(frame)
 	b = vision.get_target(frame)
+	# vision.show_all(frame)
 	print " "
 	if a:
 		print a
@@ -38,7 +39,7 @@ while 1:
 	#
 	cv2.circle(frame,(target[0],target[1]),2,(0,255,0),3);
 	cv2.imshow('frame', frame)
-	cv2.waitKey(0)
+	cv2.waitKey(1)
 #
 cam.release()
 cv2.destroyAllWindows()

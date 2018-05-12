@@ -2,13 +2,30 @@ import numpy as np
 import cv2
 import math
 
+whiteLower  = (170, 180, 180)
+whiteUpper  = (255, 255, 255)
+redLower    = (0, 0, 130)
+redUpper    = (100, 100, 255)
+greenLower  = (80, 140, 50)
+greenUpper  = (190, 255, 160)
+
+def show_all(frame):
+    mask1 = cv2.inRange(frame, whiteLower, whiteUpper)
+    mask2 = cv2.inRange(frame, redLower, redUpper)
+    mask3 = cv2.inRange(frame, greenLower, greenUpper)
+
+    cv2.imshow('white', mask1)
+    cv2.imshow('red', mask2)
+    cv2.imshow('green', mask3)
+
+
 # finds coordinates of the circle
 def find_location(frame):
-    cont_frame, contours, hierarchy = rangeContours(frame, (210, 210, 210), (255, 255, 255))
+    cont_frame, contours, hierarchy = rangeContours(frame, whiteLower, whiteUpper)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # cv2.imshow('gray', gray)
     circles = []
-    minR = 40;
+    minR = 20;
     maxR = 80;
 
     for i, cnt in enumerate(contours, start=0):
@@ -44,9 +61,6 @@ def rangeContours(hsv, colorLower, colorUpper):
 def find_ball(frame):
     sensitivity = 50
     #bgr
-    redLower = (0, 0, 150)
-    redUpper = (100, 100, 255)
-
     cont_frame, contours, hierarchy = rangeContours(frame, redLower, redUpper)
     # centers = []
     
@@ -78,8 +92,7 @@ def get_target(frame):
 def find_orientation_block(frame):
     sensitivity = 50
     #bgr
-    greenLower = (90, 170, 50)
-    greenUpper = (190, 255, 160)
+
 
     # hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     cont_frame, contours, hierarchy = rangeContours(frame, greenLower, greenUpper)

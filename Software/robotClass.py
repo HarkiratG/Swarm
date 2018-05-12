@@ -28,7 +28,7 @@ class robot:
 			print "orientating"
 			self.orient()
 
-		elif self.distance > 170:
+		elif self.distance > 140:
 			print "moving"
 			if 160 <= abs(self.angle_diff) <= 200:
 				print "should go forward"
