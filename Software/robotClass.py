@@ -24,11 +24,11 @@ class robot:
 
 		print "angle ", self.angle_diff, "distance", self.distance, "compliment", self.compliment
 
-		if 10 <= abs(self.compliment) <= 80 and self.distance > 60:
+		if 20 <= abs(self.compliment) <= 160 and self.distance > 100:
 			print "orientating"
 			self.orient()
 
-		elif self.distance > 70:
+		elif self.distance > 170:
 			print "moving"
 			if 160 <= abs(self.angle_diff) <= 200:
 				print "should go forward"
@@ -72,8 +72,6 @@ class robot:
 		if abs(self.speed) > 0.5:
 			self.speed = 0
 		#
-		# left_turn_conditions = range(-45,0)+range(135,180)+range(-225,-180)+range(315,360)
-		# right_turn_conditions = range(0,45)+range(-180,-135)+range(180, 225)+range(-360,-315)
 		left_turn_conditions = range(-90,0)+range(90,180)+range(-270,-180)+range(270,360)
 		right_turn_conditions = range(0,90)+range(-180,-90)+range(180, 270)+range(-360,-270)
 		if math.floor(self.angle_diff) in left_turn_conditions and (self.speed > -0.5):
@@ -85,7 +83,7 @@ class robot:
 			self.port.write("d")
 			self.speed = self.speed + 0.5
 
-	# method to calculate the distance and orientation difference
+	# method to calculate the distance between robot and target and orientation difference
 	def calc_dist_angle(self):
 		x_delta = self.target_position[0] - self.current_position[0]
 		y_delta = self.target_position[1] - self.current_position[1]
@@ -97,7 +95,5 @@ class robot:
 		self.angle_diff = (required_orientation - current_orientation)
 
 		#calculates the compliment of angle [0, 90] in each quadrant
-		self.compliment = abs(self.angle_diff) - math.floor( abs(self.angle_diff)/90 )*90
-
-		# print required_orientation, current_orientation, self.angle_diff, self.compliment
+		self.compliment = abs(self.angle_diff) - math.floor( abs(self.angle_diff)/180 )*180
 
